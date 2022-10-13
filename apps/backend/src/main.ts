@@ -13,5 +13,5 @@ import { ValidationPipe } from '@nestjs/common';
       whitelist: true,
     }),
   );
-  await app.listen(8000);
+  await app.listen(process.env.PORT || 8000);
 })();

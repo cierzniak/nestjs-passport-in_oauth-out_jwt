@@ -5,9 +5,9 @@ services:
     image: mariadb:10.9
     environment:
       MYSQL_ROOT_PASSWORD: secret
-      MYSQL_DATABASE: example
       TZ: Europe/Warsaw
     volumes:
+    - ./docker/database:/docker-entrypoint-initdb.d:ro
     - database_data:/var/lib/mysql:rw
     ports:
     - '127.0.0.1:3306:3306/tcp'
