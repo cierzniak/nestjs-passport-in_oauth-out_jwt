@@ -22,6 +22,6 @@ export class User {
   })
   roles: Role[];
 
-  @Column({ default: true })
-  active: boolean;
+  @Column({ nullable: true })
+  lastLoginAt: Date;
 }

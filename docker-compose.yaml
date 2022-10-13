@@ -1,6 +1,19 @@
 version: '3.9'
 
 services:
+  oidc_provider:
+    image: authelia/authelia:latest
+    environment:
+      TZ: Europe/Warsaw
+    volumes:
+    - ./docker/oidc_provider:/config:rw
+    ports:
+    - '0.0.0.0:9091:9091/tcp'
+  smtp_trap:
+    image: mailhog/mailhog:latest
+    ports:
+    - '0.0.0.0:1025:1025/tcp'
+    - '0.0.0.0:8025:8025/tcp'
   database:
     image: mariadb:10.9
     environment:

@@ -1,6 +1,6 @@
 # React x NestJS x Passport.js
 
-Example is an app with frontend (React) and backend (NestJS) with authorisation via email magic-link.
+Example is an app with frontend (React) and backend (NestJS) with authorisation via OIDC.
 
 ## Installation
 Prerequisites:
@@ -19,7 +19,8 @@ $ docker compose up --detach
 $ yarn dev
 ```
 
-_TBD_
+### Login to application
+Backend application have integration to external user provider. Locally it's [Authelia](https://www.authelia.com/) which is statically configured to serve users from YAML file. List of users is available in file `docker/oidc_provider/users.yml`.
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

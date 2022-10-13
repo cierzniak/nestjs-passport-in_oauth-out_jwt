@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { DuplicateResource, ResourceNotFound } from '../common/exception';
+import { ResourceNotFound } from '../common/exception';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -14,17 +14,12 @@ export class UserService {
   ) {}
 
   async create(user: CreateUserDto) {
-    const email = await this.userRepository.findOneBy({ email: user.email });
-    if (email) {
-      // TODO Find way of throwing domain exception instead of HTTP one
-      throw new DuplicateResource();
-    }
     const entity = this.userRepository.create(user);
-    return this.userRepository.save(entity);
+    return await this.userRepository.save(entity);
   }
 
   async findAll(page: number) {
-    const pageSize = 20;
+    const pageSize = Number(process.env.DEFAULT_PAGE_SIZE || 20);
 
     const [data, totalSize] = await this.userRepository.findAndCount({
       take: pageSize,
@@ -32,18 +27,17 @@ export class UserService {
       order: {
         lastName: 'ASC',
       },
-      select: ['id', 'firstName', 'lastName', 'active'],
+      select: ['id', 'firstName', 'lastName', 'lastLoginAt'],
     });
     return { data, meta: { page: Number(page), pageSize, totalSize } };
   }
 
-  async findOne(id: string) {
-    const entity = await this.userRepository.findOneBy({ id });
-    // TODO Check this condition is needed
-    if (!entity) {
-      return null;
-    }
-    return entity;
+  findOne(id: string): Promise<User | null> {
+    return this.userRepository.findOneBy({ id });
+  }
+
+  findOneByEmail(email: string): Promise<User | null> {
+    return this.userRepository.findOneBy({ email });
   }
 
   async update(id: string, user: UpdateUserDto) {
@@ -51,6 +45,6 @@ export class UserService {
     if (!entity) {
       throw new ResourceNotFound();
     }
-    return this.userRepository.save(entity);
+    return await this.userRepository.save(entity);
   }
 }

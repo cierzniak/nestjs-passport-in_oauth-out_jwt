@@ -1,0 +1,11 @@
+users:
+  user1:
+    password: $argon2id$v=19$m=65536,t=1,p=4$bHFIdFhXL2JJS3RsR0JnSw$mZZeyGAo2mkw2fzM6gZ+Yesu14gGpk18aVioazm8wLE
+    displayname: Kamil Nowak
+    email: user1@app.com
+    groups: [ ]
+  user2:
+    password: $argon2id$v=19$m=65536,t=1,p=4$dGt0d3FHYmRodG1yRUNXTw$H8B1Gu6CGqWtsFnkqRH/Bm1tjvN+hMNzGxRi4pyF5vs
+    displayname: Janina Kowalska
+    email: user2@app.com
+    groups: [ ]
