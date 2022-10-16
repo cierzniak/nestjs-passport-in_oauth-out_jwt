@@ -14,6 +14,12 @@ export default (): Config => ({
     password: 'secret',
     database: 'example',
   },
+  redis: {
+    host: 'localhost',
+    port: 6379,
+    username: 'default',
+    password: 'secret',
+  },
   oidc: {
     providerUrl: 'http://localhost:9091',
     clientId: '8d5ac03e-c9a7-48f3-b03b-2890c64811f1',

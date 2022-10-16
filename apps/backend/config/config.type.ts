@@ -12,6 +12,12 @@ export interface Config {
     password: string;
     database: string;
   };
+  redis: {
+    host: string;
+    port: number;
+    username: string;
+    password: string;
+  };
   oidc: {
     providerUrl: string;
     clientId: string;
