@@ -1,8 +1,10 @@
+import { APP_GUARD } from '@nestjs/core';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { RolesGuard } from './auth/roles.guard';
 
 import prodConfig from '../config/production';
 import devConfig from '../config/development';
@@ -31,5 +33,6 @@ import devConfig from '../config/development';
     AuthModule,
     UserModule,
   ],
+  providers: [{ provide: APP_GUARD, useClass: RolesGuard }],
 })
 export class AppModule {}

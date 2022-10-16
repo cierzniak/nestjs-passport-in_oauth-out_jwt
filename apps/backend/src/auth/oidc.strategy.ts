@@ -54,10 +54,8 @@ export class OidcStrategy extends PassportStrategy(Strategy, 'oidc') {
 
     try {
       return {
-        id_token: tokenSet.id_token,
-        access_token: tokenSet.access_token,
-        refresh_token: tokenSet.refresh_token,
         user: localUser,
+        token: tokenSet,
       };
     } catch (err) {
       throw new UnauthorizedException();

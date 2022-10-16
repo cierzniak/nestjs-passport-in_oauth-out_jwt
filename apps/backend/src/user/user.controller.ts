@@ -1,7 +1,9 @@
 import { Controller, Get, Param, Query, Patch, Body } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { Roles, Role } from '../auth/roles.decorator';
 
+@Roles(Role.administrator)
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -16,6 +18,7 @@ export class UserController {
     return this.userService.getById(id);
   }
 
+  @Roles(Role.superadministrator)
   @Patch(':id')
   update(@Param('id') id: string, @Body() user: UpdateUserDto) {
     return this.userService.update(id, user);

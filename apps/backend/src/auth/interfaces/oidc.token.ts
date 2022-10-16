@@ -1,8 +1,7 @@
-import { UserinfoResponse } from 'openid-client';
+import { TokenSetParameters } from 'openid-client';
+import { User } from '../../user/entities/user.entity';
 
 export interface OidcToken {
-  id_token: string;
-  access_token: string;
-  refresh_token?: string;
-  user: UserinfoResponse;
+  user: User;
+  token: TokenSetParameters;
 }
