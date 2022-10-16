@@ -1,20 +1,26 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { ConfigService } from '@nestjs/config';
 import { ValidationPipe } from '@nestjs/common';
 import * as session from 'express-session';
 import * as passport from 'passport';
+import { AppModule } from './app.module';
 
 (async () => {
   const app = await NestFactory.create(AppModule);
+
+  const configService = app.get(ConfigService);
+
   app.use(
     session({
-      secret: process.env.SECRET,
+      secret: configService.get('secret'),
       resave: false,
       saveUninitialized: false,
     }),
   );
+
   app.use(passport.initialize());
   app.use(passport.session());
+
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
@@ -24,5 +30,6 @@ import * as passport from 'passport';
       whitelist: true,
     }),
   );
-  await app.listen(process.env.PORT || 8000);
+
+  await app.listen(configService.get('port'));
 })();

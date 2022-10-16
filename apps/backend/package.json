@@ -7,7 +7,7 @@
     "prebuild": "rimraf dist",
     "build": "nest build",
     "start": "node dist/main",
-    "lint": "eslint \"{src,apps,libs}/**/*.ts\" --fix"
+    "lint": "eslint \"{config,src}/**/*.ts\" --fix"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",

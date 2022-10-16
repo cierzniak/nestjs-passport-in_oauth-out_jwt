@@ -8,9 +8,12 @@ import {
 } from '@nestjs/common';
 import { Response } from 'express';
 import { LoginGuard } from './login.guard';
+import { ConfigService } from '@nestjs/config';
 
 @Controller()
 export class AuthController {
+  constructor(private readonly configService: ConfigService) {}
+
   @UseGuards(LoginGuard)
   @Get('/_auth/callback')
   loginCallback(@Res() res: Response) {
@@ -35,7 +38,7 @@ export class AuthController {
   @Get('/logout')
   logout(@Request() req, @Res() res: Response) {
     req.session.destroy(() =>
-      res.redirect(process.env.OIDC_LOGOUT_REDIRECT_URI),
+      res.redirect(this.configService.get('oidc.logoutRedirectUrl')),
     );
   }
 }
