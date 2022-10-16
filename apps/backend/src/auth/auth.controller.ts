@@ -1,5 +1,6 @@
 import {
   Controller,
+  Delete,
   Get,
   Request,
   Res,
@@ -35,7 +36,7 @@ export class AuthController {
     return req.user;
   }
 
-  @Get('/logout')
+  @Delete('/logout')
   logout(@Request() req, @Res() res: Response) {
     req.session.destroy(() =>
       res.redirect(this.configService.get('oidc.logoutRedirectUrl')),
