@@ -4,6 +4,7 @@ import { ValidationPipe } from '@nestjs/common';
 import * as session from 'express-session';
 import * as passport from 'passport';
 import { AppModule } from './app.module';
+import { DomainExceptionFilter } from './common/domain.exception.filter';
 
 (async () => {
   const app = await NestFactory.create(AppModule);
@@ -30,6 +31,8 @@ import { AppModule } from './app.module';
       whitelist: true,
     }),
   );
+
+  app.useGlobalFilters(new DomainExceptionFilter());
 
   await app.listen(configService.get('port'));
 })();

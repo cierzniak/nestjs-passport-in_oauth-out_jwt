@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ResourceNotFound } from '../common/exception';
+import { ResourceNotFound } from '../common/domain.exception';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -39,12 +39,20 @@ export class UserService {
     };
   }
 
-  findOne(id: string): Promise<User | null> {
-    return this.userRepository.findOneBy({ id });
+  async getById(id: string): Promise<User> {
+    const entity = await this.userRepository.findOneBy({ id });
+    if (!entity) {
+      throw new ResourceNotFound();
+    }
+    return entity;
   }
 
-  findOneByEmail(email: string): Promise<User | null> {
-    return this.userRepository.findOneBy({ email });
+  async getByEmail(email: string): Promise<User> {
+    const entity = await this.userRepository.findOneBy({ email });
+    if (!entity) {
+      throw new ResourceNotFound();
+    }
+    return entity;
   }
 
   async update(id: string, user: UpdateUserDto) {

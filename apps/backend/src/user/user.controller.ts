@@ -13,7 +13,7 @@ export class UserController {
 
   @Get(':id')
   getOne(@Param('id') id: string) {
-    return this.userService.findOne(id);
+    return this.userService.getById(id);
   }
 
   @Patch(':id')

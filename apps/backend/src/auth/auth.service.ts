@@ -10,8 +10,10 @@ export class AuthService {
   constructor(private readonly userService: UserService) {}
 
   async fetchUser(user: UserinfoResponse): Promise<User> {
-    let entity = await this.userService.findOneByEmail(user.email);
-    if (!entity) {
+    let entity;
+    try {
+      entity = await this.userService.getByEmail(user.email);
+    } catch (exception) {
       entity = await this.createUser(user);
     }
     return await this.updateUser(entity, user);
