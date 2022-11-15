@@ -9,7 +9,7 @@ import {
   Strategy,
   VerifyCallback,
 } from 'passport-oauth2';
-import { parseJwtData } from './util/jwt';
+import { parseJwtData } from './utils/jwt';
 
 @Injectable()
 export class Oauth2Strategy extends PassportStrategy(Strategy, 'ouath2') {
@@ -40,10 +40,6 @@ export class Oauth2Strategy extends PassportStrategy(Strategy, 'ouath2') {
     callback: VerifyCallback,
   ): Promise<any> {
     const { name, preferred_username, email } = parseJwtData(accessToken);
-    callback(null, {
-      name,
-      username: preferred_username,
-      email,
-    });
+    callback(null, { name, username: preferred_username, email });
   }
 }

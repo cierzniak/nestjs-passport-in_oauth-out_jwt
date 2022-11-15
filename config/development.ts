@@ -19,4 +19,8 @@ export default (): ConfigType => ({
     },
     scope: 'profile email',
   },
+  jwt: {
+    secret: 'NH)E%Y3pR?AsC6y8f`Q@(DI%Sc19=t}^8sPa=[Cc"UM1o{pcLScZ0P>.%X%w,<t',
+    tokenAlive: '2h',
+  },
 });

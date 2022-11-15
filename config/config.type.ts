@@ -15,4 +15,8 @@ export type ConfigType = {
     };
     scope: string;
   };
+  jwt: {
+    secret: string;
+    tokenAlive: string;
+  };
 };
