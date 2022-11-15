@@ -7,7 +7,7 @@ export class AuthController {
   @UseGuards(Oauth2Guard)
   @Get('_oauth/callback')
   loginCallback(@Request() req, @Res() res: Response) {
-    return res.status(200).json({ data: req.user });
+    return res.status(200).json({ user: req.user });
   }
 
   @UseGuards(Oauth2Guard)
