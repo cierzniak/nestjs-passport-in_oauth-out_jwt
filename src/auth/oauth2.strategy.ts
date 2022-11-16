@@ -21,6 +21,12 @@ export class Oauth2Strategy extends PassportStrategy(Strategy, 'ouath2') {
       clientID: configService.get<string>('oauth2.client.id'),
       clientSecret: configService.get<string>('oauth2.client.secret'),
       scope: configService.get<string>('oauth2.scope'),
+      /**
+       * Here is null store adapter to ignore all session-related things from OAuth provider. In passport-oauth2 package
+       * by default session is stored via express-session. With session our app can't be easily scaled and this session
+       * data we don't use anymore. It's only to tell us "who has logged in" and next we'll carry everything internally
+       * using JWT (check auth.controller.ts file how we deal with OAuth2 callback response).
+       */
       store: {
         store: (req: Request, callback: StateStoreStoreCallback) =>
           callback(null, randomUUID()),
